@@ -8,7 +8,7 @@ This distribution supports **Da Capo 2 Plus Communication** only (`dc2pc`, MES v
 
 ## Downloads and game folder
 
-Download both packages from [GitHub Releases](https://github.com/SakuraSymphonyReTranslation/DC2MesTextTool_GUI-and-Patch/releases/latest):
+Download both packages from [GitHub Releases](https://github.com/SakuraSymphonyReTranslation/DC2PCMesTextTool_GUI-and-Patch/releases/latest):
 
 - **DC2PCMesTextTool_GUI.rar**: MES ↔ JSON importer/exporter with a GUI and CLI. Includes Indonesian and English documentation.
 - **Released_patch.rar**: launcher, patch DLL, INI configuration, and supporting runtime files.

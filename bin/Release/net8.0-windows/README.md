@@ -8,7 +8,7 @@ Distribusi ini hanya mendukung **Da Capo 2 Plus Communication** (`dc2pc`, versi 
 
 ## Unduhan dan folder instalasi
 
-Unduh kedua paket terbaru dari [GitHub Releases](https://github.com/SakuraSymphonyReTranslation/DC2MesTextTool_GUI-and-Patch/releases/latest):
+Unduh kedua paket terbaru dari [GitHub Releases](https://github.com/SakuraSymphonyReTranslation/DC2PCMesTextTool_GUI-and-Patch/releases/latest):
 
 - **DC2PCMesTextTool_GUI.rar**: importer/exporter MES ↔ JSON, GUI dan CLI. Termasuk dokumentasi bahasa Indonesia dan Inggris.
 - **Released_patch.rar**: launcher, DLL patch, INI, dan berkas pendukung runtime.

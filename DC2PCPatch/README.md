@@ -6,7 +6,7 @@ Patch dan launcher ini dikhususkan untuk **Da Capo 2 Plus Communication** (D.C.I
 
 ## Instalasi
 
-Unduh `Released_patch.rar` dari [Releases](https://github.com/SakuraSymphonyReTranslation/DC2MesTextTool_GUI-and-Patch/releases/latest), atau gunakan paket di `build/Released`.
+Unduh `Released_patch.rar` dari [Releases](https://github.com/SakuraSymphonyReTranslation/DC2PCMesTextTool_GUI-and-Patch/releases/latest), atau gunakan paket di `build/Released`.
 
 `<GAME_DIR>` berarti folder instalasi pilihan pemain yang berisi `DC2PC.EXE` dan `AdvData`. Ganti placeholder ini dengan lokasi game Anda; tidak ada drive yang diwajibkan.
 
