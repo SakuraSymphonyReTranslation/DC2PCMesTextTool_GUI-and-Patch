@@ -1,0 +1,10 @@
+DC2PC MES Text Tool (Da Capo II Plus Communication)
+
+Usage:
+  DC2PCMesTextTool.exe import <json_file> <original_mes> <output_mes> [-w <width>]
+  DC2PCMesTextTool.exe export <mes_file> <output_json>
+  DC2PCMesTextTool.exe batch-import <json_dir> <mes_dir> <output_dir> [-w <width>]
+  DC2PCMesTextTool.exe batch-export <mes_dir> <output_dir>
+
+Options:
+  -w, --wrap <width>  Word wrap width (default: 70, 0 to disable)

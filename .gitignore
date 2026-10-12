@@ -1,0 +1,29 @@
+# Build artifacts
+obj/
+.vs/
+__pycache__/
+*.pyc
+
+# Machine-specific CMake output; ready-to-use packages remain tracked
+/DC2PCPatch/build_dc2pc/
+/DC2PCPatch/build/*
+!/DC2PCPatch/build/Released/
+
+# Test corpus (raw MES and translated scripts are installed separately)
+/DC2PCPatch/dc2pc/MES/
+/DC2PCPatch/dc2pc/MES - JP/
+/DC2PCPatch/dc2pc/dc2pcjson_test_Translated/
+
+# Python virtual env
+DC2PCPatch/.venv/
+
+# Embedded repo metadata
+DC2PCPatch/Detours/.git/
+
+# Temporary logs
+*.log
+*_log*.txt
+
+# OS/editor
+Thumbs.db
+.DS_Store
