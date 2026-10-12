@@ -2,7 +2,7 @@
 
 **Bahasa Indonesia** | [English](Readme_en.md)
 
-Importer/exporter untuk **D.C.II P.C. ~Da Capo II~ Plus Communication**.
+Importer/exporter untuk **D.C.II P.C. ～Da Capo II～ Plus Communication**.
 
 Distribusi ini hanya mendukung **Da Capo 2 Plus Communication** (`dc2pc`, versi MES `0x9969`). GUI, CLI, tabel referensi, patch, dan launcher dikhususkan untuk game ini. Source utama patch: `DC2PCPatch/src/dc2pcpatch.cpp`.
 

@@ -2,7 +2,7 @@
 
 **Bahasa Indonesia** | [English](Readme_en.md)
 
-Patch dan launcher ini dikhususkan untuk **Da Capo 2 Plus Communication** (D.C.II P.C. ~Da Capo II~ Plus Communication). Source utama: `src/dc2pcpatch.cpp` dan `src/launcher.cpp`.
+Patch dan launcher ini dikhususkan untuk **Da Capo 2 Plus Communication** (D.C.II P.C. ～Da Capo II～ Plus Communication). Source utama: `src/dc2pcpatch.cpp` dan `src/launcher.cpp`.
 
 ## Instalasi
 
