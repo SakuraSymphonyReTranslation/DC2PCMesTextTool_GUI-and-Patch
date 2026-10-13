@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\Games\DC2PC\DC2PCMesTextTool_GUI and Patch\DC2PCPatch\Detours\src\detours.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Games\DC2PC\DC2PCMesTextTool_GUI and Patch\DC2PCPatch\Detours\src\modules.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Games\DC2PC\DC2PCMesTextTool_GUI and Patch\DC2PCPatch\Detours\src\disasm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Games\DC2PC\DC2PCMesTextTool_GUI and Patch\DC2PCPatch\Detours\src\image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Games\DC2PC\DC2PCMesTextTool_GUI and Patch\DC2PCPatch\Detours\src\creatwth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Games\DC2PC\DC2PCMesTextTool_GUI and Patch\DC2PCPatch\Detours\src\disolx86.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\Games\DC2PC\DC2PCMesTextTool_GUI and Patch\DC2PCPatch\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{FEE1226A-1BCF-3027-AB1A-D5A288864827}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
