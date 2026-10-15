@@ -1,0 +1,5 @@
+E:/Games/DC2PC/DC2PCMesTextTool_GUI and Patch/DC2PCPatch/build/CMakeFiles/detours.dir
+E:/Games/DC2PC/DC2PCMesTextTool_GUI and Patch/DC2PCPatch/build/CMakeFiles/DC2PCPatch.dir
+E:/Games/DC2PC/DC2PCMesTextTool_GUI and Patch/DC2PCPatch/build/CMakeFiles/DC2PCLauncher.dir
+E:/Games/DC2PC/DC2PCMesTextTool_GUI and Patch/DC2PCPatch/build/CMakeFiles/ALL_BUILD.dir
+E:/Games/DC2PC/DC2PCMesTextTool_GUI and Patch/DC2PCPatch/build/CMakeFiles/ZERO_CHECK.dir

@@ -15,6 +15,7 @@
     <Compile Remove="DC2PCPatch\**" />
     <Compile Remove="bin\**" />
     <Compile Remove="obj\**" />
+    <Compile Remove="tests\**" />
     <Compile Remove="_bin_patched\**" />
     <Compile Remove="_obj_patched\**" />
     <Compile Remove="_patched_tool\**" />

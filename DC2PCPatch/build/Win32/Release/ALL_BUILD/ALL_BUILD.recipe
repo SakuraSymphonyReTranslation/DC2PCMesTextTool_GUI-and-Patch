@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>E:\Games\DC2PC\DC2PCMesTextTool_GUI and Patch\DC2PCPatch\build\Release\ZERO_CHECK</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Games\DC2PC\DC2PCMesTextTool_GUI and Patch\DC2PCPatch\build\Release\DC2PCLauncher.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Games\DC2PC\DC2PCMesTextTool_GUI and Patch\DC2PCPatch\build\Release\DC2PCPatch.dll</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Games\DC2PC\DC2PCMesTextTool_GUI and Patch\DC2PCPatch\build\Release\ALL_BUILD</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>

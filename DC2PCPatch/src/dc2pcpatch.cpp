@@ -5015,6 +5015,7 @@ static bool IsHsxf4PopupConfirmText(const BYTE *p, DWORD len) {
 }
 
 #include "popup_text_renderer.inl"
+#include "choice_text_renderer.inl"
 
 struct Hsxf4TextFlags {
   bool choiceMarker;
@@ -12712,6 +12713,12 @@ static void InitPatch() {
   DetourUpdateThread(GetCurrentThread());
   HMODULE hExe = GetModuleHandleA(NULL);
   if (hExe) {
+    BYTE *choiceString = (BYTE *)hExe + 0x1D3F0;
+    const BYTE choiceStringSignature[] = {0x8B, 0x44, 0x24, 0x08, 0x55};
+    if (memcmp(choiceString, choiceStringSignature, sizeof(choiceStringSignature)) == 0) {
+      Real_DrawChoiceString = (int (__cdecl *)(int, int, int, const char *, int))choiceString;
+      DetourAttach(&(PVOID &)Real_DrawChoiceString, Hook_DrawChoiceString);
+    }
     BYTE *bitmapText = (BYTE *)hExe + 0xE980;
     const BYTE bitmapTextSignature[] = {0x56, 0x8B, 0x74, 0x24, 0x10};
     if (memcmp(bitmapText, bitmapTextSignature, sizeof(bitmapTextSignature)) == 0) {
@@ -12798,6 +12805,8 @@ static void CleanupPatch() {
     DetourDetach(&(PVOID &)Real_Hsxf4_1C970, Hook_Hsxf4_1C970);
   if (Real_DrawBitmapText28)
     DetourDetach(&(PVOID &)Real_DrawBitmapText28, Hook_DrawBitmapText28);
+  if (Real_DrawChoiceString)
+    DetourDetach(&(PVOID &)Real_DrawChoiceString, Hook_DrawChoiceString);
   if (Real_DrawScriptGlyph)
     DetourDetach(&(PVOID &)Real_DrawScriptGlyph, Hook_DrawScriptGlyph);
   DetourDetach(&(PVOID &)Real_GetGlyphOutlineA, Hook_GetGlyphOutlineA);

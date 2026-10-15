@@ -4,16 +4,9 @@ obj/
 __pycache__/
 *.pyc
 
-# Machine-specific CMake build artifacts and intermediate files
-/DC2PCPatch/build/CMakeFiles/
-/DC2PCPatch/build/*.dir/
-/DC2PCPatch/build/Win32/
-/DC2PCPatch/build/x64/
-/DC2PCPatch/build/CMakeCache.txt
-/DC2PCPatch/build/cmake_install.cmake
-/DC2PCPatch/build/ALL_BUILD.*
-/DC2PCPatch/build/ZERO_CHECK.*
-/DC2PCPatch/build/Release/
+# Generated test outputs
+/tests/**/bin/
+/tests/**/obj/
 
 # Test corpus (raw MES and translated scripts are installed separately)
 /DC2PCPatch/dc2pc/MES/
@@ -33,3 +26,7 @@ DC2PCPatch/Detours/.git/
 # OS/editor
 Thumbs.db
 .DS_Store
+
+# Keep the complete patch build snapshot, including generated files and logs.
+!/DC2PCPatch/build/
+!/DC2PCPatch/build/**

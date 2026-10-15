@@ -8,7 +8,7 @@ This distribution supports **Da Capo 2 Plus Communication** only (`dc2pc`, MES v
 
 ## Downloads and game folder
 
-Download both packages from [GitHub Releases](https://github.com/SakuraSymphonyReTranslation/DC2PCMesTextTool_GUI-and-Patch/releases/latest):
+Download both updated packages from [release v1.0.0](https://github.com/SakuraSymphonyReTranslation/DC2PCMesTextTool_GUI-and-Patch/releases/tag/v1.0.0):
 
 - **DC2PCMesTextTool_GUI.rar**: MES ↔ JSON importer/exporter with a GUI and CLI. Includes Indonesian and English documentation.
 - **Released_patch.rar**: launcher, patch DLL, INI configuration, and supporting runtime files.
@@ -71,10 +71,30 @@ Both the Single File and Batch tabs export the combined format shown above. Text
 1. Set **Input MES/JSON** to the translated JSON file.
 2. The original MES file with the same base name is automatically located next to the JSON file or in the specified MES folder.
 3. Choose an **Output** file different from the original MES file.
-4. Set **Word Wrap**: default is `70` in Single File, Batch, and the CLI; `0` preserves text and line breaks without reflowing them.
+4. Set **Word Wrap** for dialogue: default is `70` in Single File, Batch, and the CLI. Choices stay on one line.
 5. Click **Import (JSON -> MES)**.
 
 The original template is required to preserve non-text bytecodes and label flow.
+
+### Editing choices
+
+Choices are exported as `{"message":"○ Choice text"}`. Edit the `message` value
+without changing JSON entry order, then import it with the matching original MES
+template. The same rules apply to Single File, Batch, and the CLI.
+
+- Leading/trailing spaces, repeated spaces, tabs, and choice line breaks are
+  collapsed to single spaces. Fullwidth Latin characters become ordinary Latin.
+- Exactly one space follows `○`. If the marker is removed while editing, it is
+  restored when the corresponding original MES entry is a choice.
+- Choices bypass dialogue Word Wrap and stay on one line; normal import does
+  not truncate their text. Empty choices are rejected with an error.
+- Re-export preserves choice text, including `~`. A choice is never merged into
+  the following dialogue as its speaker name.
+
+Use the updated `DC2PCPatch.dll` choice renderer in the game directory. It
+remeasures edited labels and adjusts the font to the button width (28–16px). MES storage retains
+safe encoded spaces while JSON uses ordinary spaces. This tool update does not
+change popup notification or textbox sizes or settings.
 
 ## Batch
 
@@ -92,19 +112,21 @@ The repository includes a Python text cleaning utility under `penghilang/`:
 ## Layout and Runtime Patch
 
 - **`DC2PCPatch.dll`** is automatically injected by `DC2PCLauncher.exe`.
+- **Choices:** Uses proportional text to tidy the space before `○` and between words. Font size adapts to translated text and button width; button dimensions stay the same.
+- **Launcher Icon:** `DC2PCLauncher.exe` uses the icon from `DC2PCPatch/icon.ico`.
 - **DVD check bypass:** The AdvSys32 engine scans for optical CD/DVD drives upon startup. The patch includes drive spoofing to allow seamless execution on optical-drive-less systems (including Linux/Wine/Proton and GameHub handhelds).
 - **Popup Text Rendering:** Hooks ADV32's 28px bitmap string renderer for confirmation popups (Save, Load, Return, Exit) and displays translated text.
 - **Font & Spacing:** Adjust font sizes, backlog layout, and spacing via `DC2PCPatch.ini`.
 - **File Redirection:** Seamlessly redirects MES script loading to `id_Data\MES` (or `eng_data\MES`) without overwriting files inside `AdvData`.
 
-For technical patch details, see the [patch README](DC2PCPatch/README.md).
+For technical patch details, see the [patch README](https://github.com/SakuraSymphonyReTranslation/DC2PCMesTextTool_GUI-and-Patch/blob/v1.0.0/DC2PCPatch/Readme_en.md).
 
 ## Validation and Encoding
 
 - DC2PC scripts are encoded in **Shift-JIS (CP932)**.
-- Encrypted bytecode strings are decrypted/re-encrypted using XOR key `0x20`.
+- Encrypted bytecode strings are decoded by adding `0x20` and encoded by subtracting `0x20` from each byte (modulo 256).
 - MES labels are recalculated based on the label table header (`labelCount * 4 + 4`).
-- Unsupported Shift-JIS characters are validated to avoid crashes or text corruption in-game.
+- Empty choices and unsupported control characters are rejected during import. Use characters available in CP932 for translations.
 
 ## CLI
 
@@ -117,7 +139,7 @@ From the executable's folder:
 .\DC2PCMesTextTool_GUI.exe batch-import "json_folder" "original_mes_folder" "output_mes_folder" -w 70
 ```
 
-`-w` specifies the word wrap limit (default: 70, `0` to disable wrap). Drag-and-dropping `.mes` files directly onto the executable is also supported for quick exports.
+`-w` specifies the dialogue word wrap limit (default: 70); choices bypass this limit. Drag-and-dropping `.mes` files directly onto the executable is also supported for quick exports.
 
 ## Building
 
@@ -127,4 +149,6 @@ From the project's source folder:
 dotnet build -c Release
 ```
 
-Building the GUI requires the .NET 8 SDK. To build the C++ patch DLL and launcher, see the instructions in the [patch README](DC2PCPatch/README.md).
+Building the GUI requires the .NET 8 SDK. To build the C++ patch DLL and launcher, see the instructions in the [patch README](https://github.com/SakuraSymphonyReTranslation/DC2PCMesTextTool_GUI-and-Patch/blob/v1.0.0/DC2PCPatch/Readme_en.md).
+
+MES ↔ JSON regression checks are available under [tests/ChoiceRoundTrip](https://github.com/SakuraSymphonyReTranslation/DC2PCMesTextTool_GUI-and-Patch/blob/v1.0.0/tests/ChoiceRoundTrip/README.md). Verification across 1,456 files covers 255 choices in 103 files, round-trips, opcode/label flow, and non-choice byte comparisons against the previous version.

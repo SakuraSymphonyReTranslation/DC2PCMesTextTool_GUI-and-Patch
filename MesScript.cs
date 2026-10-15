@@ -172,7 +172,7 @@ public class MesScript
                 continue;
             }
             
-            bool isChoice = ChoicePattern.IsMatch(text);
+            bool isChoice = IsChoiceLabel(text) || ChoicePattern.IsMatch(text);
             
             var entry = new TextEntry
             {
@@ -245,7 +245,7 @@ public class MesScript
                     Opcode = opcode,
                     IsEncrypted = true,
                     Message = text,
-                    IsChoice = ChoicePattern.IsMatch(text)
+                    IsChoice = IsChoiceLabel(text) || ChoicePattern.IsMatch(text)
                 });
                 knownOffsets.Add(rel);
                 pos += textLen + 2;
@@ -333,7 +333,7 @@ public class MesScript
                 Opcode = token.Opcode,
                 IsEncrypted = encrypted,
                 Message = text,
-                IsChoice = ChoicePattern.IsMatch(text)
+                IsChoice = IsChoiceLabel(text) || ChoicePattern.IsMatch(text)
             });
         }
 
@@ -387,7 +387,10 @@ public class MesScript
             var origEntry = originalEntries[i];
             var text = translatedEntries[i].Message;
             
-            if (formatter != null && !string.IsNullOrEmpty(text))
+            // Choice labels are fitted to the button by DC2PCPatch. Dialogue
+            // wrapping must not split them, even when ○ was removed in JSON.
+            if (formatter != null && !string.IsNullOrEmpty(text) &&
+                !IsChoiceLabel(origEntry.Message) && !IsChoiceLabel(text))
             {
                 int originalMax = formatter.MaxLineLength;
                 if (origEntry.Opcode == 0x6A) formatter.MaxLineLength = 1000;
@@ -576,11 +579,12 @@ public class MesScript
     private static string PrepareTextForMesWrite(string text, string originalText,
         bool preserveLatinAscii = false, bool encryptedString = false)
     {
+        bool originalIsChoice = IsChoiceLabel(originalText);
         text = NormalizeMesInputText(text);
         if (IsAsciiChoiceId(originalText) && IsAsciiChoiceId(text))
             return text.Trim();
-        if (IsChoiceLabel(text))
-            return NormalizeChoiceLabelForMes(text, preserveLatinAscii);
+        if (originalIsChoice || IsChoiceLabel(text))
+            return NormalizeChoiceLabelForMes(text, originalIsChoice);
         if (preserveLatinAscii)
             return NormalizeAsciiWidthForMesLatin(text, encryptedString);
         return ConvertAsciiToFullWidthForMes(text);
@@ -715,35 +719,23 @@ public class MesScript
 
     private static bool IsChoiceLabel(string text)
     {
-        if (string.IsNullOrWhiteSpace(text))
-            return false;
-
-        return text.TrimStart().StartsWith("○", StringComparison.Ordinal);
+        return ChoiceText.IsLabel(text);
     }
 
     private static string NormalizeChoiceLabelForMes(string text,
-        bool preserveLatinAscii = false)
+        bool restoreMarker = false)
     {
-        if (string.IsNullOrEmpty(text))
-            return text;
-
         // Choice labels are encrypted strings. ASCII space (0x20) would become
-        // a NUL byte after the engine's -0x20 encryption. Keep the visible
-        // letters Latin when requested, but store word gaps as full-width
-        // spaces so the encrypted string is not truncated.
-        string normalized = NormalizeAsciiWidthForMesLatin(text.Trim());
-        var sb = new StringBuilder(text.Length);
-        foreach (char c in normalized)
-        {
-            sb.Append(c == ' ' ? '\u3000' : c);
-        }
-        return sb.ToString();
+        // a NUL byte after -0x20 encryption. Only storage spaces are fullwidth;
+        // the runtime choice renderer measures the normalized Latin label.
+        string normalized = ChoiceText.Normalize(text, restoreMarker);
+        return NormalizeAsciiWidthForMesLatin(normalized, encryptedString: true);
     }
 
     private static string RestoreChoiceLabelForJson(string text)
     {
-        // Keep the internal MES placeholder invisible to JSON users.
-        return text.Replace('~', ' ').Replace('\t', ' ').Replace('\u3000', ' ');
+        // Do not treat '~' as padding: it may be intentional translated text.
+        return ChoiceText.Normalize(text);
     }
 
     private static bool IsAsciiChoiceId(string text)

@@ -6,7 +6,7 @@ This patch and launcher are tailored specifically for **Da Capo 2 Plus Communica
 
 ## Installation
 
-Download `Released_patch.rar` from [Releases](https://github.com/SakuraSymphonyReTranslation/DC2PCMesTextTool_GUI-and-Patch/releases/latest), or use the package under `build/Released`.
+Download `Released_patch.rar` from [release v1.0.0](https://github.com/SakuraSymphonyReTranslation/DC2PCMesTextTool_GUI-and-Patch/releases/tag/v1.0.0), or use the package under `build/Released`.
 
 `<GAME_DIR>` means the player's chosen installation folder containing `DC2PC.EXE` and `AdvData`. Replace this placeholder with your game's location; no specific drive is mandatory.
 
@@ -22,6 +22,7 @@ Package contents:
 - `DC2PCPatch.ini` (font & spacing configuration)
 - `LoaderDll.dll` & `LocaleEmulator.dll` (locale libraries)
 - `registry\dc2pc registry.reg` (registry setup helper)
+- `README.md` and `Readme_en.md` (Indonesian and English guides)
 
 Translated scripts are installed separately into `id_Data\MES` or `eng_data\MES` under `<GAME_DIR>` according to language choice.
 
@@ -33,10 +34,16 @@ The tested reference executable has SHA256:
 
 ## Patch Features
 
+- **Choices:** Proportional text tidies the space before `○` and between words. Labels are measured again when translations change, with font size adjusted from 28px down to 16px to fit the button width.
+- **Launcher Icon:** `DC2PCLauncher.exe` uses `icon.ico` from the source tree.
 - **DVD Check Bypass:** Prevents optical CD/DVD check failures on modern Windows 10/11 and Linux/Wine/Proton/GameHub platforms.
 - **Popup Text Hooks:** Translates 28px bitmap string confirmation prompts (Save, Load, Return, Exit).
 - **File Redirection:** Reads translated scripts from `id_Data\MES` without altering original game files in `AdvData`.
 - **Font & Layout Customization:** Configure dialogue font, backlog font, sizes, and line spacing through `DC2PCPatch.ini`.
+
+The choice renderer is active for translated languages. This choice update leaves button dimensions, popup notifications, textboxes, and INI settings unchanged. If a label is still too long at 16px, the native renderer is used; shorten that choice's wording.
+
+When editing JSON, use the updated importer/exporter from the same release. Choices stay on one line, spacing is normalized, and a deleted `○` marker is restored from the original MES template. See the [tool guide](../Readme_en.md#editing-choices) for details.
 
 ## Compiling / Building
 
@@ -54,4 +61,13 @@ Or using the automated agent build script:
 build_agent_dc2pc.bat
 ```
 
-Binaries will be output to the `build/` directory (`DC2PCLauncher.exe` and `DC2PCPatch.dll`).
+Binaries are written to `build/Release` (`DC2PCLauncher.exe` and `DC2PCPatch.dll`). The distribution package is under `build/Released/Released_patch.rar`.
+
+The repository includes the complete `build/` directory: Visual Studio solution, CMake cache, intermediate files, and packages. The cache contains paths from the build machine. When compiling in another location or on another computer, use a new build directory from the `DC2PCPatch` folder:
+
+```cmd
+cmake -S . -B build-local -G "Visual Studio 17 2022" -A Win32
+cmake --build build-local --config Release
+```
+
+These commands write their output to `build-local/Release`. The launcher resource reads `icon.ico` from the source tree, embedding that icon during compilation.

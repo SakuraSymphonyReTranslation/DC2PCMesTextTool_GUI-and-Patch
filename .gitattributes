@@ -1,0 +1,2 @@
+# Preserve the complete generated patch build snapshot byte for byte.
+/DC2PCPatch/build/** -text
